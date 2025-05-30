@@ -4,14 +4,24 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 # Load datasets
 movies = pd.read_csv("archive/movie.csv")
+netflix = pd.read_csv("archive/netflix_titles.csv")
 ratings = pd.read_csv("archive/rating.csv")
 tags = pd.read_csv("archive/tag.csv")  # opcional
 
+# Merge movies and tags
 tags['tag'] = tags['tag'].fillna('')
 tags_agg = tags.groupby("movieId")["tag"].apply(lambda x: " ".join(x.astype(str))).reset_index()
 movies = pd.merge(movies, tags_agg, on="movieId", how="left")
 movies['tag'] = movies['tag'].fillna('')
 movies['text'] = movies['title'] + ' ' + movies['genres'].str.replace('|', ' ') + ' ' + movies['tag']
+
+# Merge movies with Netflix data
+netflix["release_year"] = netflix["release_year"].astype(str)
+netflix["title_full"] = netflix["title"] + " (" + netflix["release_year"] + ")"
+movies = pd.merge(movies, netflix[["title_full", "description"]],
+                     left_on="title", right_on="title_full", how="left")
+movies["description"] = movies["description"].fillna("No description available.")
+
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 movies['embedding'] = list(model.encode(movies['text'].tolist(), show_progress_bar=True))
@@ -79,6 +89,7 @@ def hybrid_recommendation(user_id, query_text, top_n=10, w_query=0.6, w_user=0.3
     movies["sim_user"] = sim_to_user
     movies["rating_scaled"] = rating_scaled
 
+
     # Score final con pesos
     movies["final_score"] = (
         w_query * sim_to_query +
@@ -92,7 +103,7 @@ def hybrid_recommendation(user_id, query_text, top_n=10, w_query=0.6, w_user=0.3
         f"Score = {int(w_query*100)}% descripción + {int(w_user*100)}% perfil + {int(w_rating*100)}% rating global."
     )
 
-    return top_movies[["title", "genres", "avg_rating", "final_score", "sim_query", "sim_user", "rating_scaled", "explanation"]]
+    return top_movies[["title", "description", "genres", "avg_rating", "final_score", "sim_query", "sim_user", "rating_scaled", "explanation"]]
 
 # def hybrid_recommendation(user_id, query_text, top_n=10, w_query=0.6, w_user=0.3, w_rating=0.1):
 #     query_vec = model.encode([query_text])[0]
