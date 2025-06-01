@@ -1,5 +1,5 @@
 
-# 🎬 Movie Recommender Prototype with Streamlit + XAI
+# 🎬 Movie Recommender Prototype with XAI
 
 This is a hybrid movie recommendation system built with **Streamlit** and powered by **MovieLens** data. It allows users to receive personalized movie suggestions based on natural language input and past movie ratings. It also supports user feedback and explainable AI (XAI) techniques like SHAP.
 
@@ -15,7 +15,6 @@ movie_recommender/
 ├── extract_descriptions.py   # Script to enrich MovieLens data with Wikipedia descriptions
 ├── dataset/                  # Folder containing datasets (movies.csv, ratings.csv, tags.csv, etc.)
 ├── requirements.txt          # Python dependencies
-└── 
 ```
 
 ---
@@ -26,7 +25,7 @@ movie_recommender/
 - 💬 Natural language input to describe what you want to watch
 - ⭐ Feedback system (0 to 5 stars) to improve the model
 - 📖 Description and intro for each movie (scraped from Wikipedia)
-- 📊 Explainable AI (XAI) with SHAP
+- 📊 Explainable AI (XAI)
 - 📄 Pagination to navigate large recommendation lists
 
 ---
@@ -36,8 +35,8 @@ movie_recommender/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/movie-recommender.git
-cd movie-recommender
+git clone https://github.com/iwhizerd/Movie_recomendator.git
+cd Movie_recomendator
 ```
 
 ### 2. Install dependencies
@@ -57,14 +56,20 @@ pip install -r requirements.txt
 Place your MovieLens dataset files inside the `archive/` folder. For example:
 
 ```
-archive/
-├── movies.csv
-├── ratings.csv
-├── tags.csv
-└── links.csv
+dataset/
+├── feedback.csv
+├── genome_scores.csv
+├── genome_tags.csv
+├── link.csv
+├── movie.csv
+├── movies_with_genres_and_intro.csv
+├── netflix_titles.csv
+├── rating.csv
+├── tag.csv
+└── users.csv
 ```
 
-You can download them from: https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset/
+You can download them from: https://drive.google.com/file/d/1Dp94b4369uF6pa3RRgpw09YgxPVoZEZQ/view?usp=drive_link
 
 ---
 
