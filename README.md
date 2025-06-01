@@ -91,17 +91,22 @@ This will create `movies_with_wikipedia_intro.csv` containing:
 
 ---
 
-### 5. Launch the Streamlit app
 
-Run the following command:
+### 5. Launch the Streamlit App
+
+To launch the main dashboard with full explainability features (including score breakdowns, weight sliders, genre profiles, and Wikipedia enrichment), run:
 
 ```bash
 streamlit run app.py
 ```
 
-The app will open in your browser at `http://localhost:8501`.
+#### Available Streamlit interfaces
 
----
+- **`app.py`** — Full-featured dashboard with explainability tools for advanced users. Includes pie chart breakdowns, genre-based user profiles, Wikipedia-based descriptions, and dynamic weight sliders for recommendation components.
+- **`user.py`** — Simplified version of the app focused on casual users. It provides a lightweight interface with basic recommendation and feedback functionality, hiding most explainability elements.
+- **`prototype.py`** — Initial development prototype used to test and validate core recommendation logic and explanation rendering.
+
+Each interface is self-contained and can be launched with the same `streamlit run` command by replacing the filename as needed.
 
 
 ## 📄 License

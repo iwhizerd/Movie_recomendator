@@ -4,11 +4,11 @@ import pandas as pd
 import os
 # import styles
 
-if not os.path.exists("feedback.csv"):
+if not os.path.exists("dataset/feedback_data.csv"):
     pd.DataFrame(columns=["userId", "movieId", "title", "sim_query", "sim_user", "rating_scaled", "final_score", "feedback"]).to_csv("feedback.csv", index=False)
 
 
-def save_feedback(feedback_row, filename="feedback_data.csv"):
+def save_feedback(feedback_row, filename="dataset/feedback_data.csv"):
     """
     Save a feedback row into a CSV file without duplicating entries for the same user and movie.
     """

@@ -36,7 +36,6 @@ st.title("🎬 Movie Recommender")
 user_id = st.number_input("Enter your User ID", min_value=1, max_value=1000, value=1)
 query = st.text_area("Describe what you feel like watching (e.g., a sci-fi thriller with suspense):")
 
-
 # Settings section
 
 default_weights = {
@@ -62,7 +61,7 @@ if st.session_state["last_user_id"] != user_id:
         st.session_state[f"weight_{k}"] = personalized[k]
     st.session_state["last_user_id"] = user_id
             
-with st.expander("### ⚙️ Advanced search"):
+with st.expander("⚙️ Advanced search"):
     
     # Personalized weights button
     if st.button("Get weight based on my user profile"):
