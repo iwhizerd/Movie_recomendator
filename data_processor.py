@@ -178,8 +178,11 @@ def movie_recommendation(user_id, user_prompt, data, n_results=10, weights=None)
         weights["year"] * movies["score_year"] +
         weights["rating"] * movies["score_rating"]
     )
-
+    
+    
     result = movies.sort_values("final_score", ascending=False).head(n_results).copy()
+    
+    result = result.reset_index()
     result["score_breakdown"] = result.apply(
         lambda row: {
             "prompt": row["score_prompt"],
@@ -193,7 +196,7 @@ def movie_recommendation(user_id, user_prompt, data, n_results=10, weights=None)
     
     result = result.rename(columns={"clean_title": "title"})
 
-    return result.reset_index()[[
+    return result[[
         "movieId", "title", "avg_rating", "year", "genres", 
         "final_score", "wikipedia_intro", "wikipedia_link",
         "score_breakdown"
@@ -275,12 +278,12 @@ def get_personalized_weights(user_id, default_weights, feedback_file=FEEDBACK_FI
 
 # print(test.columns)  # Display all columns in the DataFrame
 
-# print("MovieId", test["movieId"].iloc[0])  
-# print("Title", test["title"].iloc[0])  
-# print("rating", test["avg_rating"].iloc[0])  
-# print("Year", test["year"].iloc[0]) 
-# print("Genres", test["genres"].iloc[0])  
-# print("final score", test["final_score"].iloc[0]) 
-# print("score breakdown", test["score_breakdown"].iloc[0]) 
+# print("MovieId", test["movieId"].iloc[0:5])  
+# print("Title", test["title"].iloc[0:5])  
+# print("rating", test["avg_rating"].iloc[0:5])  
+# print("Year", test["year"].iloc[0:5]) 
+# print("Genres", test["genres"].iloc[0:5])  
+# print("final score", test["final_score"].iloc[0:5]) 
+# print("score breakdown", test["score_breakdown"].iloc[0:5]) 
 
 

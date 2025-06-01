@@ -203,7 +203,8 @@ if "recommendations" in st.session_state:
                 
                 score_breakdown = row["score_breakdown"]
                 toggle_key = f"show_breakdown_{row['movieId']}"
-
+                
+                # print(f"Score: {score_breakdown}")
                 if "score_breakdown" in row and isinstance(score_breakdown, dict):
                     # Remove 'weights' key if present
                     filtered_breakdown = {k: v for k, v in score_breakdown.items() if k != "weights"}
